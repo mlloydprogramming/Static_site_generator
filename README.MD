@@ -2,7 +2,7 @@
 
 We'll dive into code in the next chapter, but first, I want to give you a high-level architecture for our static site generator.
 
-![architecture diagram]<Static_site_generator/architecture.png>
+![architecture diagram]<https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/UKCNg8E.png>
 
 The flow of data through the full system is:
 
