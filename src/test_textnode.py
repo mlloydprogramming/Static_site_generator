@@ -1,6 +1,6 @@
 import unittest
 
-from textnode import TextNode, TextType
+from textnode import TextNode, TextType, split_nodes_delimiter
 from htmlnode import text_node_to_html_node
 
 class TestTextNode(unittest.TestCase):
@@ -54,6 +54,51 @@ class TestTextNode(unittest.TestCase):
         text_node = TextNode("Hello, world!", TextType.IMAGE, "https://boot.dev/image.png")
         html_node = text_node_to_html_node(text_node)
         self.assertEqual(html_node.to_html(), '<img src="https://boot.dev/image.png" alt="Hello, world!"></img>')
+
+    def test_split_nodes_single_delimiter_occurence(self):
+        old_nodes = TextNode("This is text with a `code block` word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([old_nodes], "`", TextType.CODE)
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" word", TextType.TEXT),
+            ],
+        )
+
+    def test_split_nodes_multiple_delimiter_occurence(self):
+        old_nodes = TextNode("This is text with a `code block` and another `code block`", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([old_nodes], "`", TextType.CODE)
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and another ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+            ],
+        )
+
+    def test_split_nodes_no_closing_delimiter(self):
+        with self.assertRaises(Exception):
+            split_nodes_delimiter([TextNode("This is text with a `code block", TextType.TEXT)], "`", TextType.CODE)
+
+    def test_split_multiple_nodes_single_delimiter_occurence(self):
+        old_nodes = [
+            TextNode("This is text with a `code block`", TextType.TEXT),
+            TextNode(" and another `code block`", TextType.TEXT),
+        ]
+        new_nodes = split_nodes_delimiter(old_nodes, "`", TextType.CODE)
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and another ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+            ],
+        )        
 
 if __name__ == "__main__":
     unittest.main()
