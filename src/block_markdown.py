@@ -1,4 +1,5 @@
 from block_type import BlockType
+from htmlnode import ParentNode
 
 def markdown_to_blocks(markdown):
     blocks = markdown.split("\n\n")
@@ -35,3 +36,17 @@ def block_to_block_type(block):
             i += 1
         return BlockType.ORDERED_LIST
     return BlockType.PARAGRAPH
+
+def heading_to_html_node(block):
+    heading_level = len(block) - len(block.lsstrip("#"))
+    tag = f"h{heading_level}"
+    content = block[heading_level + 1:].strip()
+
+def markdown_to_html_node(markdown):
+    blocks = markdown_to_blocks(markdown)
+    block_nodes = []
+
+    for block in blocks:
+        block_type = block_to_block_type(block)
+
+        
