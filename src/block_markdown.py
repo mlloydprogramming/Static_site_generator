@@ -40,12 +40,17 @@ def block_to_block_type(block):
     return BlockType.PARAGRAPH
 
 def text_to_children(text):
-
+    text_nodes = text_to_textnodes(text)
+    children = []
+    for text_node in text_nodes:
+        children.append(text_node_to_html_node(text_node))
+    return children
 
 def heading_to_html_node(block):
-    heading_level = len(block) - len(block.lsstrip("#"))
+    heading_level = len(block) - len(block.lstrip("#"))
     tag = f"h{heading_level}"
     content = block[heading_level + 1:].strip()
+    return ParentNode(tag=tag, children=text_to_children(content))
 
 def code_block_to_html_node(block):
 
