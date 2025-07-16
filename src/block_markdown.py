@@ -53,25 +53,30 @@ def heading_to_html_node(block):
     return ParentNode(tag=tag, children=text_to_children(content))
 
 def code_block_to_html_node(block):
+    lines = block.split("\n")
+    content = TextNode("\n".join(lines[1:-1]), TextType.TEXT)
+    wrapped_content = ParentNode(tag="pre", children=[LeafNode("code", content.text)])
+    return wrapped_content
+    
 
 
-def quote_to_html_node(block):
+# def quote_to_html_node(block):
 
 
-def unordered_list_to_html_node(block):
+# def unordered_list_to_html_node(block):
 
 
-def ordered_list_to_html_node(block):
+# def ordered_list_to_html_node(block):
 
 
-def paragraph_to_html_node(block):
+# def paragraph_to_html_node(block):
 
 
-def markdown_to_html_node(markdown):
-    blocks = markdown_to_blocks(markdown)
-    block_nodes = []
+# def markdown_to_html_node(markdown):
+#     blocks = markdown_to_blocks(markdown)
+#     block_nodes = []
 
-    for block in blocks:
-        block_type = block_to_block_type(block)
+#     for block in blocks:
+#         block_type = block_to_block_type(block)
 
         

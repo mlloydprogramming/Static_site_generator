@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import markdown_to_blocks, block_to_block_type
+from block_markdown import markdown_to_blocks, block_to_block_type, code_block_to_html_node
 from block_type import BlockType
 class TestMarkdownToHTML(unittest.TestCase):
     def test_markdown_to_blocks(self):
@@ -58,6 +58,10 @@ This is the same paragraph on a new line
         self.assertEqual(block_to_block_type(block), BlockType.ORDERED_LIST)
         block = "paragraph"
         self.assertEqual(block_to_block_type(block), BlockType.PARAGRAPH)
+
+    def test_code_block_to_html_node(self):
+        block = "```\ncode\nand more code\n```"
+        print(code_block_to_html_node(block))
 
 
 if __name__ == "__main__":
