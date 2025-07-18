@@ -64,7 +64,12 @@ This is the same paragraph on a new line
         print(code_block_to_html_node(block))
 
     def test_paragraph_block_to_html_node(self):
-        block = "This is a **paragraph** with _some_ text."
+        block = """
+        This is a **paragraph** with _some_ text.
+        some more text here.
+
+        this is a new paragraph
+        """
         print(paragraph_block_to_html_node(block))
 
 
