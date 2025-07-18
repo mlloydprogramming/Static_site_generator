@@ -68,8 +68,9 @@ def code_block_to_html_node(block):
 
 
 def paragraph_block_to_html_node(block):
-    content = block.strip()
-    return ParentNode(tag="p", children=text_to_children(content))
+    paragraph = block.strip()
+    content = TextNode(paragraph, TextType.TEXT)
+    return ParentNode(tag="p", children=text_to_children(content.text))
 
 
 # def markdown_to_html_node(markdown):
