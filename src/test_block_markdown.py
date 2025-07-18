@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import markdown_to_blocks, block_to_block_type, code_block_to_html_node
+from block_markdown import markdown_to_blocks, block_to_block_type, code_block_to_html_node, paragraph_to_html_node
 from block_type import BlockType
 class TestMarkdownToHTML(unittest.TestCase):
     def test_markdown_to_blocks(self):
@@ -62,6 +62,11 @@ This is the same paragraph on a new line
     def test_code_block_to_html_node(self):
         block = "```\ncode\nand more code\n```"
         print(code_block_to_html_node(block))
+
+    def test_paragraph_to_html_node(self):
+        block = "This is a paragraph with some text."
+        print(paragraph_to_html_node(block))
+
 
 
 if __name__ == "__main__":

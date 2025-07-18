@@ -58,8 +58,6 @@ def code_block_to_html_node(block):
     wrapped_content = ParentNode(tag="pre", children=[LeafNode("code", content.text)])
     return wrapped_content
     
-
-
 # def quote_to_html_node(block):
 
 
@@ -69,7 +67,9 @@ def code_block_to_html_node(block):
 # def ordered_list_to_html_node(block):
 
 
-# def paragraph_to_html_node(block):
+def paragraph_to_html_node(block):
+    content = block.strip()
+    return ParentNode(tag="p", children=text_to_children(content))
 
 
 # def markdown_to_html_node(markdown):
