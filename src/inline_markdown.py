@@ -12,6 +12,7 @@ def text_to_textnodes(text):
     nodes = split_nodes_link(nodes)
     return nodes
 
+
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
     for old_node in old_nodes:
