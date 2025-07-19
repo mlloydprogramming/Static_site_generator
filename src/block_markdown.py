@@ -58,8 +58,35 @@ def code_block_to_html_node(block):
     wrapped_content = ParentNode(tag="pre", children=[LeafNode("code", content.text)])
     return wrapped_content
     
-# def quote_to_html_node(block):
+def blockquote_to_html_node(block):
+    lines = block.strip().split("\n")
+    quote_lines = []
 
+    for line in lines:
+        line = line.lstrip()
+        if not line.startswith(">"):
+            continue
+
+        # Remove leading '>' and following space if present
+        content = line[1:]
+        if content.startswith(" "):
+            content = content[1:]
+
+        # If it's just a blank '>' line, preserve it as empty paragraph break
+        quote_lines.append(content)
+
+    # Rejoin and split into paragraphs on *true* blank lines (now preserved)
+    quote_text = "\n".join(quote_lines)
+    paragraphs = quote_text.split("\n\n")
+
+    blockquote_children = []
+    for para in paragraphs:
+        if not para.strip():
+            continue
+        inline_nodes = text_to_children(para.strip())
+        blockquote_children.append(ParentNode(tag="p", children=inline_nodes))
+
+    return ParentNode(tag="blockquote", children=blockquote_children)
 
 # def unordered_list_to_html_node(block):
 

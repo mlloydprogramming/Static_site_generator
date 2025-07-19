@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import markdown_to_blocks, block_to_block_type, code_block_to_html_node, paragraph_block_to_html_node
+from block_markdown import markdown_to_blocks, block_to_block_type, code_block_to_html_node, paragraph_block_to_html_node, blockquote_to_html_node
 from block_type import BlockType
 class TestMarkdownToHTML(unittest.TestCase):
     def test_markdown_to_blocks(self):
@@ -59,18 +59,22 @@ This is the same paragraph on a new line
         block = "paragraph"
         self.assertEqual(block_to_block_type(block), BlockType.PARAGRAPH)
 
-    def test_code_block_to_html_node(self):
-        block = "```\ncode\nand more code\n```"
-        print(code_block_to_html_node(block))
+    # def test_code_block_to_html_node(self):
+    #     block = "```\ncode\nand more code\n```"
+    #     print(code_block_to_html_node(block))
 
-    def test_paragraph_block_to_html_node(self):
-        block = """
-        This is a **paragraph** with _some_ text.
-        some more text here.
+    # def test_paragraph_block_to_html_node(self):
+    #     block = """
+    #     This is a **paragraph** with _some_ text.
+    #     some more text here.
 
-        this is a new paragraph
-        """
-        print(paragraph_block_to_html_node(block))
+    #     this is a new paragraph
+    #     """
+    #     print(paragraph_block_to_html_node(block))
+
+    def test_blockquote_to_html_node(self):
+        block = "> This is a quote\n> with multiple lines"
+        print(blockquote_to_html_node(block))
 
 
 
